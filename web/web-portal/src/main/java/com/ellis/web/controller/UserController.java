@@ -1,5 +1,6 @@
 package com.ellis.web.controller;
 
+import com.ellis.common.service.page.PageData;
 import com.ellis.common.service.entity.User;
 import com.ellis.user.service.UserService;
 import com.ellis.user.service.entity.UserInfo;
@@ -73,6 +74,15 @@ public class UserController extends BaseController
         logger.info("UserController queryUserInfo begin, uid:{}", "1");
         UserInfo user = userService.queryUserByUid(uid);
         return successResp(user);
+    }
+
+    @RequiredLogin
+    @RequestMapping(value = "/queryPage", method = RequestMethod.GET)
+    public FrameResp queryPage() throws UserException
+    {
+        logger.info("UserController queryPage begin, uid:{}", "1");
+        PageData result = userService.queryPage();
+        return successResp(result);
     }
 
 }

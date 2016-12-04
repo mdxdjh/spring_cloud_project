@@ -1,5 +1,6 @@
 package com.ellis.user;
 
+import com.ellis.common.service.page.PageData;
 import com.ellis.user.service.UserService;
 import com.ellis.user.service.common.ErrorCodeConst;
 import com.ellis.user.dal.db.UserInfoPo;
@@ -54,6 +55,16 @@ public class UserServiceImpl implements UserService
         UserInfoPo po = userInfoPoMapper.selectByPrimaryKey(uid);
 
         return UserConvertUtil.po2Info(po);
+    }
+
+    @Override
+    public PageData queryPage() throws UserException
+    {
+        UserInfoPoExample example = new UserInfoPoExample();
+        example.createCriteria().andUsernameEqualTo("22222");
+        List<UserInfoPo> pos = userInfoPoMapper.selectByExample(example);
+        PageData result = PageData.getByList(UserConvertUtil.batchPo2Info(pos), 2, 2);
+        return result;
     }
 
 }

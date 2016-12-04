@@ -3,6 +3,9 @@ package com.ellis.user.dal.db.convert;
 import com.ellis.user.dal.db.UserInfoPo;
 import com.ellis.user.service.entity.UserInfo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author ellis.luo
  * @date 16/11/21 下午6:55
@@ -30,5 +33,16 @@ public class UserConvertUtil
         info.setName(po.getName());
         info.setUsername(po.getUsername());
         return info;
+    }
+
+    public static List<UserInfo> batchPo2Info(List<UserInfoPo> pos)
+    {
+        List<UserInfo> infos = new ArrayList<UserInfo>();
+        for (UserInfoPo po : pos)
+        {
+            infos.add(po2Info(po));
+        }
+
+        return infos;
     }
 }
