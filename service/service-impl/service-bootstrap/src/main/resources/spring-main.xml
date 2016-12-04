@@ -1,0 +1,108 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/task
+       http://www.springframework.org/schema/task/spring-task-3.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+    <!--<context:component-scan common-package="com.ellis"/>-->
+
+    <!-- 配置文件 -->
+    <context:property-placeholder
+            location="classpath:config.properties"
+            ignore-resource-not-found="true"/>
+
+    <!-- RPC 服务远程调度 -->
+    <import resource="rpc/rpc-service.xml"/>
+
+    <!-- DB -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <!-- 基本属性 url、user、password -->
+        <property name="url"
+                  value="jdbc:mysql://${db.host}:${db.port}/${db.dbname}?connectTimeout=10000&amp;autoReconnect=true&amp;allowMultiQueries=true&amp;useUnicode=true&amp;zeroDateTimeBehavior=convertToNull&amp;useSSL=false"/>
+        <property name="username" value="${db.user}"/>
+        <property name="password" value="${db.pwd}"/>
+        <property name="initialSize" value="${db.conn.pool.init.size}"/>
+        <property name="minIdle" value="${db.conn.pool.min.idle}"/>
+        <property name="maxWait">
+            <value>60000</value>
+        </property>
+        <property name="maxActive" value="${db.conn.pool.max.active}"/>
+        <property name="timeBetweenEvictionRunsMillis">
+            <value>60000</value>
+        </property>
+        <property name="minEvictableIdleTimeMillis">
+            <value>300000</value>
+        </property>
+        <property name="validationQuery">
+            <value>SELECT 'x'</value>
+        </property>
+        <property name="testWhileIdle">
+            <value>true</value>
+        </property>
+        <property name="connectProperties">
+            <props>
+                <prop key="password">${db.pwd}</prop>
+            </props>
+        </property>
+        <property name="connectionInitSqls" value="set names utf8mb4;"/>
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath*:mapping/**/*.xml"/>
+    </bean>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.ellis.*.dal.db"/>
+        <property name="nameGenerator">
+            <bean class="org.springframework.beans.factory.support.DefaultBeanNameGenerator"></bean>
+        </property>
+    </bean>
+
+    <!-- 事务 -->
+    <bean id="txManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <bean id="transactionTemplate"
+          class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="txManager"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+    <!-- redis -->
+    <bean id="defaultFactory"
+          class="com.ellis.commons.redis.RedisFactory" init-method="initJedis">
+        <!-- 修改项 -->
+        <property name="CONN_IP" value="${default.redis.ip}"/>
+        <property name="CONN_PORT" value="${default.redis.port}"/>
+        <property name="CONN_PWD" value="${default.redis.pwd}"/>
+
+        <!-- 共用配置项，特殊需求自定义修改 -->
+        <property name="CONN_TIMEOUT" value="${redis.conn.timeout}"/>
+        <property name="MAX_ACTIVE" value="${redis.max.active}"/>
+        <property name="MAX_IDLE" value="${redis.max.idle}"/>
+        <property name="MIN_IDLE" value="${redis.min.idle}"/>
+        <property name="MAX_WAIT" value="${redis.max.wait}"/>
+    </bean>
+
+    <bean id="defaultCache" class="com.ellis.commons.redis.RedisClient">
+        <property name="factory" ref="defaultFactory">
+        </property>
+    </bean>
+
+    <!-- 分布式锁 -->
+    <bean id="redisReentrantLock" class="com.ellis.commons.lock.RedisReentrantLock">
+        <property name="redisClient" ref="defaultCache"/>
+        <property name="lockTimeOut" value="5000"/>
+    </bean>
+
+</beans>
