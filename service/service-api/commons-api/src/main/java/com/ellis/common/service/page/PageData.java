@@ -76,7 +76,6 @@ public class PageData<T> implements Serializable
      *        每页记录数
      * @param dataTotal
      *        总记录数
-     * @author: smartlv
      */
     public PageData(int pageNo, int pageSize, int dataTotal)
     {
@@ -103,7 +102,6 @@ public class PageData<T> implements Serializable
      *        总记录数
      * @param pageData
      *        当前页数据列表
-     * @author: smartlv
      */
     public PageData(int pageNo, int pageSize, int dataTotal, List<T> pageData)
     {
@@ -154,7 +152,6 @@ public class PageData<T> implements Serializable
      * 查询时为入参，查询返回时为List结果
      * 
      * @return
-     * @author: smartlv
      * @date: 2014年5月16日下午8:28:22
      */
     public List<T> getPageData()
@@ -171,7 +168,6 @@ public class PageData<T> implements Serializable
      * 
      * @param pageData
      *        查询时为入参，查询返回时为List结果
-     * @author: smartlv
      * @date: 2014年5月16日下午8:29:07
      */
     public void setPageData(List<T> pageData)
