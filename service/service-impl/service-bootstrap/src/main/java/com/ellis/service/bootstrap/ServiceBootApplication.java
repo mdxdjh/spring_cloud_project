@@ -1,4 +1,4 @@
-package com.ellis;
+package com.ellis.service.bootstrap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
