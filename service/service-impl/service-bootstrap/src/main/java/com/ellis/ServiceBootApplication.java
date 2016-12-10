@@ -15,8 +15,6 @@ import org.springframework.context.annotation.ImportResource;
  * 服务启动类
  */
 @SpringBootApplication(scanBasePackages = "com.ellis")
-@Configuration
-@EnableAutoConfiguration
 @ImportResource(locations = { "classpath:spring-main.xml" })
 public class ServiceBootApplication extends SpringBootServletInitializer
 {
