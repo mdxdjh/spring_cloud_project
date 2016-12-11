@@ -13,7 +13,7 @@
     <artifactId>service-bootstrap</artifactId>
     <name>service-bootstrap</name>
     <description>服务启动类</description>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
