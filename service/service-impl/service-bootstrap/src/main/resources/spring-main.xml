@@ -71,31 +71,31 @@
     <!--</bean>-->
     <!--<tx:annotation-driven transaction-manager="txManager"/>-->
 
-    <!-- redis -->
-    <bean id="defaultFactory"
-          class="com.ellis.commons.redis.RedisFactory" init-method="initJedis">
-        <!-- 修改项 -->
-        <property name="CONN_IP" value="${default.redis.ip}"/>
-        <property name="CONN_PORT" value="${default.redis.port}"/>
-        <property name="CONN_PWD" value="${default.redis.pwd}"/>
+    <!--&lt;!&ndash; redis &ndash;&gt;-->
+    <!--<bean id="defaultFactory"-->
+          <!--class="com.ellis.commons.redis.RedisFactory" init-method="initJedis">-->
+        <!--&lt;!&ndash; 修改项 &ndash;&gt;-->
+        <!--<property name="CONN_IP" value="${redis.ip}"/>-->
+        <!--<property name="CONN_PORT" value="${redis.port}"/>-->
+        <!--<property name="CONN_PWD" value="${redis.pwd}"/>-->
 
-        <!-- 共用配置项，特殊需求自定义修改 -->
-        <property name="CONN_TIMEOUT" value="${redis.conn.timeout}"/>
-        <property name="MAX_ACTIVE" value="${redis.max.active}"/>
-        <property name="MAX_IDLE" value="${redis.max.idle}"/>
-        <property name="MIN_IDLE" value="${redis.min.idle}"/>
-        <property name="MAX_WAIT" value="${redis.max.wait}"/>
-    </bean>
+        <!--&lt;!&ndash; 共用配置项，特殊需求自定义修改 &ndash;&gt;-->
+        <!--<property name="CONN_TIMEOUT" value="${redis.conn.timeout}"/>-->
+        <!--<property name="MAX_ACTIVE" value="${redis.max.active}"/>-->
+        <!--<property name="MAX_IDLE" value="${redis.max.idle}"/>-->
+        <!--<property name="MIN_IDLE" value="${redis.min.idle}"/>-->
+        <!--<property name="MAX_WAIT" value="${redis.max.wait}"/>-->
+    <!--</bean>-->
 
-    <bean id="defaultCache" class="com.ellis.commons.redis.RedisClient">
-        <property name="factory" ref="defaultFactory">
-        </property>
-    </bean>
+    <!--<bean id="defaultCache" class="com.ellis.commons.redis.RedisClient">-->
+        <!--<property name="factory" ref="defaultFactory">-->
+        <!--</property>-->
+    <!--</bean>-->
 
     <!-- 分布式锁 -->
-    <bean id="redisReentrantLock" class="com.ellis.commons.lock.RedisReentrantLock">
-        <property name="redisClient" ref="defaultCache"/>
-        <property name="lockTimeOut" value="5000"/>
-    </bean>
+    <!--<bean id="redisReentrantLock" class="com.ellis.commons.lock.RedisReentrantLock">-->
+        <!--<property name="redisClient" ref="defaultCache"/>-->
+        <!--<property name="lockTimeOut" value="5000"/>-->
+    <!--</bean>-->
 
 </beans>
