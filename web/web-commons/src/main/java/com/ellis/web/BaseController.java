@@ -24,7 +24,8 @@ public class BaseController
 {
     private Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
 
-    private final int SUCCESS_CODE = 200;
+    private final int SUCCESS_CODE = 0;
+    private final int ERROR_CODE = -1;
 
     // 检查valid的参数错误
     protected void checkParams(BindingResult result) throws BusinessException
@@ -80,9 +81,19 @@ public class BaseController
         return new FrameResp().buildCode(SUCCESS_CODE).buildBody(body);
     }
 
+    protected FrameResp errorResp(Object body)
+    {
+        return new FrameResp().buildCode(ERROR_CODE).buildBody(body);
+    }
+
     protected FrameResp successResp()
     {
         return new FrameResp().buildCode(SUCCESS_CODE).buildBody("操作成功");
+    }
+
+    protected FrameResp errorResp()
+    {
+        return new FrameResp().buildCode(ERROR_CODE).buildBody("操作失败");
     }
 
     protected FrameResp errorResp(BaseErrorCode errorCode)

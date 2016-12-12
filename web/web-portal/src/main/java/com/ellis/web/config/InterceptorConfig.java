@@ -1,4 +1,4 @@
-package com.ellis.web;
+package com.ellis.web.config;
 
 import com.ellis.web.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
@@ -8,10 +8,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 /**
  * @author ellis.luo
  * @date 16/11/25 下午2:13
- * @description
+ * @description 拦截器
  */
 @Configuration
-public class Config extends WebMvcConfigurationSupport
+public class InterceptorConfig extends WebMvcConfigurationSupport
 {
     @Override
     protected void addInterceptors(InterceptorRegistry registry)
