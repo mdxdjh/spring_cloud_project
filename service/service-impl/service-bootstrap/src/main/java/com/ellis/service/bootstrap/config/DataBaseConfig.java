@@ -47,7 +47,6 @@ public class DataBaseConfig
     @Bean
     public SqlSessionFactory sqlSessionFactoryBean() throws Exception
     {
-
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource());
 

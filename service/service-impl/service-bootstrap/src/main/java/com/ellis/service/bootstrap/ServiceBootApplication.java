@@ -17,5 +17,6 @@ public class ServiceBootApplication
     public static void main(String[] args)
     {
         SpringApplication.run(ServiceBootApplication.class, args);
+//        new SpringApplicationBuilder(ServiceBootApplication.class).web(false).run(args);
     }
 }
