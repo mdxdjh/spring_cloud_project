@@ -13,7 +13,7 @@
        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
     <!-- RPC 服务远程调度 -->
-    <import resource="rpc/rpc-service.xml"/>
+    <!--<import resource="rpc/rpc-service.xml"/>-->
 
     <!--&lt;!&ndash; DB &ndash;&gt;-->
     <!--<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"-->
