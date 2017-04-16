@@ -1,8 +1,7 @@
 package com.ellis.user.service;
 
-import com.ellis.common.service.page.PageData;
-import com.ellis.user.service.exception.UserException;
 import com.ellis.user.service.entity.UserInfo;
+import com.ellis.user.service.exception.UserException;
 
 /**
  * @author ellis.luo
@@ -33,6 +32,6 @@ public interface UserService
      */
     public UserInfo queryUserByUid(long uid) throws UserException;
 
-    public PageData queryPage() throws UserException;
+//    public PageData queryPage() throws UserException;
 
 }

@@ -3,7 +3,7 @@ package com.ellis.order;
 import com.alibaba.fastjson.JSON;
 import com.ellis.common.service.common.OrderStatus;
 import com.ellis.common.service.exception.BusinessException;
-import com.ellis.commons.utils.OrderGenerUtil;
+//import com.ellis.commons.utils.OrderGenerUtil;
 import com.ellis.goods.service.GoodsService;
 import com.ellis.goods.service.entity.GoodsInfo;
 import com.ellis.order.dal.db.OrderInfoPo;
@@ -52,7 +52,7 @@ public class OrderServiceImpl implements OrderService
 
     private OrderInfo assembleOrder(OrderInfo orderInfo)
     {
-        String orderNo = OrderGenerUtil.genOrderId(OrderGenerUtil.ORDER, orderInfo.getUid());
+        String orderNo = "";
 
         GoodsInfo goods = goodsService.queryGoodsById(orderInfo.getGoodsId());
 

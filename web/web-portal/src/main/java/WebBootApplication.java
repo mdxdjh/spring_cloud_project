@@ -1,7 +1,10 @@
+import com.ellis.web.config.RibbonConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
@@ -11,16 +14,16 @@ import org.springframework.context.annotation.ImportResource;
 @SpringBootApplication(scanBasePackages = "com.ellis.web")
 // @EnableScheduling
 @Configuration
-@ImportResource(locations = { "classpath:spring-main.xml" })
-public class WebBootApplication extends SpringBootServletInitializer
-{
+@ImportResource(locations = {"classpath:spring-main.xml"})
+@RibbonClient(name = "demo_web", configuration = RibbonConfig.class)
+//@EnableDiscoveryClient
+public class WebBootApplication extends SpringBootServletInitializer {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(WebBootApplication.class);
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         SpringApplication.run(WebBootApplication.class, args);
     }
 }

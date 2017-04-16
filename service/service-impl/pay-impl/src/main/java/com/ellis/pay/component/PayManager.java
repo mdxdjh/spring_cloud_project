@@ -26,10 +26,10 @@ public class PayManager
 {
     protected org.slf4j.Logger Logger = LoggerFactory.getLogger(PayManager.class);
 
-    @Autowired
+//    @Autowired
     private PayLogInfoPoMapper payLogMapper;
 
-    @Autowired
+//    @Autowired
     private IphonePayLogPoMapper iphonePayLogManager;
 
     @Async

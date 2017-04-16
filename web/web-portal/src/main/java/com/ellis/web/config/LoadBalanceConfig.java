@@ -1,4 +1,4 @@
-package com.ellis.config;
+package com.ellis.web.config;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -12,8 +12,7 @@ import org.springframework.web.client.RestTemplate;
  * @description
  */
 @Configuration
-public class LoadBalanceConfig
-{
+public class LoadBalanceConfig {
     /**
      * LoadBalanced 注解表明restTemplate使用LoadBalancerClient执行请求
      *
@@ -21,11 +20,15 @@ public class LoadBalanceConfig
      */
     @Bean
     @LoadBalanced
-    public RestTemplate restTemplate()
-    {
+    public RestTemplate restTemplate() {
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
         factory.setConnectTimeout(3000);
         factory.setReadTimeout(3000);
-        return new RestTemplate(factory);
+
+        RestTemplate restTemplate = new RestTemplate(factory);
+        // 设置restTemplate的错误处理handler
+//        RestResponseErrorHandler errorHandler = new RestResponseErrorHandler();
+//        restTemplate.setErrorHandler(errorHandler);
+        return restTemplate;
     }
 }

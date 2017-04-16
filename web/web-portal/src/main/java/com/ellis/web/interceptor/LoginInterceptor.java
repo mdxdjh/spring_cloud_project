@@ -1,9 +1,12 @@
 package com.ellis.web.interceptor;
 
+import com.alibaba.fastjson.JSON;
 import com.ellis.common.service.entity.User;
 import com.ellis.web.exception.AuthFailException;
 import com.ellis.web.common.Constants;
 import com.ellis.web.common.RequiredLogin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -20,6 +23,9 @@ import java.lang.reflect.Method;
  */
 public class LoginInterceptor extends HandlerInterceptorAdapter
 {
+
+    private Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
     {
@@ -32,7 +38,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter
             return true;
         }
 
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
+        logger.info("====={}", JSON.toJSONString(session));
         if (session == null)
         {
             throw new AuthFailException();
