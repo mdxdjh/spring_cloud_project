@@ -42,6 +42,12 @@
             <artifactId>spring-cloud-starter-zuul</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.ellis</groupId>
+            <artifactId>demo_common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

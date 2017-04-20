@@ -1,6 +1,8 @@
 package com.ellis.user;
 
 import com.alibaba.fastjson.JSON;
+import com.ellis.commons.lock.RedisReentrantLock;
+import com.ellis.commons.redis.RedisClient;
 import com.ellis.user.dal.db.UserInfoPo;
 import com.ellis.user.dal.db.UserInfoPoExample;
 import com.ellis.user.dal.db.UserInfoPoMapper;
@@ -12,6 +14,7 @@ import com.ellis.user.service.exception.UserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,12 +31,21 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserInfoPoMapper userInfoPoMapper;
 
+    @Autowired
+    @Qualifier("defaultCache")
+    private RedisClient redisClient;
+
+    @Autowired
+    @Qualifier("redisReentrantLock")
+    private RedisReentrantLock lock;
+
     @Override
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public void register(@RequestBody UserInfo userInfo) throws UserException {
         logger.info("register input:{} ", JSON.toJSONString(userInfo));
         UserInfoPo po = UserConvertUtil.info2Po(userInfo);
         userInfoPoMapper.insert(po);
+
     }
 
     @Override
